@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: minha-api
+    env_file:
+      - .env
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb+srv://${MONGO_USER}:${MONGO_PASS}@${MONGO_HOST}/${MONGO_DB}?retryWrites=true&w=majority
+    ports:
+      - "8081:8081"
