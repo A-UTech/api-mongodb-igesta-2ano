@@ -4,6 +4,7 @@ import jakarta.validation.groups.Default;
 import org.igesta.dto.RegistroRequestDTO;
 import org.igesta.dto.RegistroResponseDTO;
 import org.igesta.model.Registro;
+import org.igesta.openapi.RegistroOpenApi;
 import org.igesta.service.RegistroService;
 import org.igesta.validation.OnCreate;
 import org.igesta.validation.OnPatch;
@@ -17,7 +18,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/igesta/registros")
-public class RegistroController {
+public class RegistroController implements RegistroOpenApi {
 
 
     private final RegistroService registroService;
@@ -52,7 +53,7 @@ public class RegistroController {
         }
 
         @PutMapping("/atualizar/{id}")
-        public ResponseEntity<Object> atualizarProduto(@PathVariable String id,
+        public ResponseEntity<Object> atualizarRegistro(@PathVariable String id,
                                                        @Validated({OnCreate.class, Default.class}) @RequestBody RegistroRequestDTO dto) {
             RegistroResponseDTO registro = registroService.atualizarRegistro(id, dto);
             return ResponseEntity.ok(registro);
