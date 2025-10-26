@@ -27,13 +27,14 @@ public class RegistroController implements RegistroOpenApi {
             this.registroService = registroService;
         }
 
-        @GetMapping("/selecionar")
-        public ResponseEntity<List<Registro>> listarRegistros() {
-            List<Registro> registros = registroService.listarTodos();
-            return ResponseEntity.ok(registros);
-        }
+    @GetMapping("/selecionar")
+    public ResponseEntity<List<RegistroResponseDTO>> listarRegistros() {
+        List<RegistroResponseDTO> registros = registroService.listarTodos();
+        return ResponseEntity.ok(registros);
+    }
 
-        @GetMapping(value = "/selecionarPorId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @GetMapping(value = "/selecionarPorId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<RegistroResponseDTO> buscarRegistroPorId(@PathVariable String id) {
             RegistroResponseDTO registro = registroService.buscarRegistroPorId(id);
             return ResponseEntity.ok(registro);

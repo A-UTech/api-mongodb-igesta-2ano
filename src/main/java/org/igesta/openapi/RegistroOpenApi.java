@@ -29,7 +29,7 @@ public interface RegistroOpenApi {
             @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso",
                     content = @Content(mediaType = "application/json"))
     })
-    public ResponseEntity<List<Registro>> listarRegistros();
+    public ResponseEntity<List<RegistroResponseDTO>> listarRegistros();
 
     @Operation(summary = "Busca registro por ID",
             description = "Retorna um registro pelo seu ID")
