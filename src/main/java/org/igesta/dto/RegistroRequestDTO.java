@@ -29,7 +29,8 @@ public class RegistroRequestDTO {
     @Pattern(regexp = ".*\\S.*\\S.*", message = "A empresa não pode estar em branco")
     private String empresa;
 
-    @Schema(description = "Identificador do turno (pode ser nulo)", example = "1")
+    @Schema(description = "Identificador do turno", example = "1")
+    @Min(value = 1, message = "O idTurno deve ser maior ou igual a 1")
     private Integer idTurno;
 
     @Schema(description = "Data do registro", example = "2025-10-15T00:00:00.000+00:00")
