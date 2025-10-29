@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,19 @@ public class RegistroService {
 
         return objectMapper.convertValue(registro, RegistroResponseDTO.class);
     }
+
+    public List<RegistroResponseDTO> buscarPorData(Date data) {
+        List<Registro> registros = registroRepository.findByData(data);
+
+        if (registros.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum registro encontrado para a data especificada");
+        }
+
+        return registros.stream()
+                .map(registro -> objectMapper.convertValue(registro, RegistroResponseDTO.class))
+                .collect(Collectors.toList());
+    }
+
 
     @Transactional
     public RegistroResponseDTO inserirRegistro(RegistroRequestDTO dto) {

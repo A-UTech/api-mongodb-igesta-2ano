@@ -11,12 +11,15 @@ import lombok.Setter;
 @Schema(description = "Objeto de resposta com informações de uma condena")
 public class CondenaResponseDTO {
 
+    @Schema(description = "Identificador único da condena", example = "1")
+    private Integer id;
+
     @Schema(description = "Nome da condena", example = "Aero Saculite T")
     private String nome;
 
-    @Schema(description = "Tipo da condena", example = "Parcial")
+    @Schema(description = "Tipo da condena", example = "Total")
     private String tipo;
 
     @Schema(description = "Quantidade de itens condenados", example = "5")
-    private Integer quantidade;
+    private int quantidade;
 }

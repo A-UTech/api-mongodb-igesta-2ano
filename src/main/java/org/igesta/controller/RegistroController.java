@@ -8,11 +8,13 @@ import org.igesta.openapi.RegistroOpenApi;
 import org.igesta.service.RegistroService;
 import org.igesta.validation.OnCreate;
 import org.igesta.validation.OnPatch;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -20,24 +22,30 @@ import java.util.List;
 @RequestMapping("/igesta/registros")
 public class RegistroController implements RegistroOpenApi {
 
+        private final RegistroService registroService;
 
-    private final RegistroService registroService;
-
-    public RegistroController(RegistroService registroService) {
+        public RegistroController(RegistroService registroService) {
             this.registroService = registroService;
         }
 
-    @GetMapping("/selecionar")
-    public ResponseEntity<List<RegistroResponseDTO>> listarRegistros() {
-        List<RegistroResponseDTO> registros = registroService.listarTodos();
-        return ResponseEntity.ok(registros);
-    }
+        @GetMapping("/selecionar")
+        public ResponseEntity<List<RegistroResponseDTO>> listarRegistros() {
+            List<RegistroResponseDTO> registros = registroService.listarTodos();
+                return ResponseEntity.ok(registros);
+        }
 
 
-    @GetMapping(value = "/selecionarPorId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+        @GetMapping(value = "/selecionarPorId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<RegistroResponseDTO> buscarRegistroPorId(@PathVariable String id) {
             RegistroResponseDTO registro = registroService.buscarRegistroPorId(id);
             return ResponseEntity.ok(registro);
+        }
+
+        @GetMapping("/selecionarPorData/{data}")
+        public ResponseEntity<List<RegistroResponseDTO>> buscarPorData(
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date data) {
+                List<RegistroResponseDTO> registros = registroService.buscarPorData(data);
+                return ResponseEntity.ok(registros);
         }
 
         @PostMapping("/inserir")
