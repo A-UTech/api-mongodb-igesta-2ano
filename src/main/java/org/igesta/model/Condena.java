@@ -13,6 +13,4 @@ public class Condena {
     private String nome;
     private String tipo;
     private int quantidade;
-
-    //linha teste para subir automatico no render
 }
