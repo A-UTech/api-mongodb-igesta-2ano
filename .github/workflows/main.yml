@@ -1,0 +1,24 @@
+name: Deploy Automático para o Render
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Acionar o Deploy no Render
+    runs-on: ubuntu-latest
+    steps:
+      - name: Informação do Commit
+        run: |
+          echo "Novo commit enviado para a main por $GITHUB_ACTOR"
+          echo "Mensagem do commit: $GITHUB_HEAD_REF"
+      
+      - name: Trigger Render deploy
+        run: |
+          echo "Acionando o Deploy do Render..."
+          curl -X POST "$RENDER_DEPLOY_HOOK_URL"
+          echo "Requisição enviada para o Render :)"
+    env:
+      RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
