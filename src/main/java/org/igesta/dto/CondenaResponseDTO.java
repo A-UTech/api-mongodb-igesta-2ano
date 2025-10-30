@@ -12,7 +12,7 @@ import lombok.Setter;
 public class CondenaResponseDTO {
 
     @Schema(description = "Identificador único da condena", example = "1")
-    private Integer id;
+    private Integer idCondena;
 
     @Schema(description = "Nome da condena", example = "Aero Saculite T")
     private String nome;
