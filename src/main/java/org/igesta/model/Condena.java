@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Condena {
     @Id
-    private Integer idCondena;
+    private Integer id;
     private String nome;
     private String tipo;
     private int quantidade;

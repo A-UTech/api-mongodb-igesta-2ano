@@ -14,7 +14,7 @@ import org.igesta.validation.OnCreate;
 public class CondenaRequestDTO {
 
     @Schema(description = "Identificador único da condena", example = "1")
-    private Integer idCondena;
+    private Integer id;
 
     @Schema(description = "Nome da condena", example = "Aero Saculite T")
     @NotNull(groups = OnCreate.class)
