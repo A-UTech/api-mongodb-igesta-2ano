@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface RegistroRepository extends MongoRepository<Registro, String> {
 
-    List<Registro> findByData(Date data);
+    List<Registro> findByDataBetween(Date dataInicio, Date dataFim);
 
 }
 

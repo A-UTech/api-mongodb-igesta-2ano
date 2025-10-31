@@ -39,18 +39,14 @@ public class RegistroService {
         return objectMapper.convertValue(registro, RegistroResponseDTO.class);
     }
 
-    public List<RegistroResponseDTO> buscarPorData(Date data) {
-        List<Registro> registros = registroRepository.findByData(data);
+    public List<RegistroResponseDTO> buscarPorPeriodo(Date dataInicio, Date dataFim) {
 
-        if (registros.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum registro encontrado para a data especificada");
-        }
+        List<Registro> registros = registroRepository.findByDataBetween(dataInicio, dataFim);
 
         return registros.stream()
                 .map(registro -> objectMapper.convertValue(registro, RegistroResponseDTO.class))
                 .collect(Collectors.toList());
     }
-
 
     @Transactional
     public RegistroResponseDTO inserirRegistro(RegistroRequestDTO dto) {
