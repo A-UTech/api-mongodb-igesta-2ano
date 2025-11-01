@@ -39,9 +39,9 @@ public class RegistroService {
         return objectMapper.convertValue(registro, RegistroResponseDTO.class);
     }
 
-    public List<RegistroResponseDTO> buscarPorPeriodo(Date dataInicio, Date dataFim) {
+    public List<RegistroResponseDTO> buscarPorPeriodoEUnidade(Date dataInicio, Date dataFim, String unidade) {
 
-        List<Registro> registros = registroRepository.findByDataBetween(dataInicio, dataFim);
+        List<Registro> registros = registroRepository.findByDataBetweenAndUnidade(dataInicio, dataFim, unidade);
 
         return registros.stream()
                 .map(registro -> objectMapper.convertValue(registro, RegistroResponseDTO.class))

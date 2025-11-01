@@ -41,12 +41,13 @@ public class RegistroController implements RegistroOpenApi {
             return ResponseEntity.ok(registro);
         }
 
-        @GetMapping("/selecionarPorPeriodo")
-        public ResponseEntity<List<RegistroResponseDTO>> buscarPorPeriodo(
+        @GetMapping("/selecionarPorPeriodoEUnidade")
+        public ResponseEntity<List<RegistroResponseDTO>> buscarPorPeriodoEUnidade(
                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date dataInicio,
-                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date dataFim) {
+                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date dataFim,
+                @RequestParam String unidade) {
 
-            List<RegistroResponseDTO> registros = registroService.buscarPorPeriodo(dataInicio, dataFim);
+            List<RegistroResponseDTO> registros = registroService.buscarPorPeriodoEUnidade(dataInicio, dataFim, unidade);
             return ResponseEntity.ok(registros);
         }
 
