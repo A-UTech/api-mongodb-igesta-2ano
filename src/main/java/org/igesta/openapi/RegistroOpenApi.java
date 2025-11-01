@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Registros", description = "API para gerenciamento do registro de condenas")
 public interface RegistroOpenApi {
@@ -29,7 +30,7 @@ public interface RegistroOpenApi {
             @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso",
                     content = @Content(mediaType = "application/json"))
     })
-    public ResponseEntity<List<RegistroResponseDTO>> listarRegistros();
+    public ResponseEntity<List<RegistroResponseDTO>> buscarRegistros();
 
     @Operation(summary = "Busca registro por ID",
             description = "Retorna um registro pelo seu ID")
@@ -40,6 +41,26 @@ public interface RegistroOpenApi {
             @ApiResponse(responseCode = "404", description = "Registro não encontrado")
     })
     public ResponseEntity<RegistroResponseDTO> buscarRegistroPorId(@Parameter(description = "ID da condena a ser buscada") String id);
+
+    @Operation(summary = "Busca condenas totais por unidade",
+            description = "Retorna todas as condenas totais por unidade")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Registro encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = RegistroResponseDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Registro não encontrado")
+    })
+    public ResponseEntity<Map<String, Object>> buscarTotaisPorUnidade(@Parameter(description = "Unidade das condenas totais a serem buscadas") String unidade);
+
+    @Operation(summary = "Busca condenas parciais por unidade",
+            description = "Retorna todas as condenas parciais por unidade")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Registro encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = RegistroResponseDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Registro não encontrado")
+    })
+    public ResponseEntity<Map<String, Object>> buscarParcialPorUnidade(@Parameter(description = "Unidade das condenas totais a serem buscadas")  String unidade);
 
     @Operation(summary = "Insere um novo registro",
             description = "Cria um novo registro no sistema")
@@ -81,7 +102,7 @@ public interface RegistroOpenApi {
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
-                    description = "Reegistro atualizado parcialmente com sucesso",
+                    description = "Registro atualizado parcialmente com sucesso",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = RegistroResponseDTO.class))
             ),
