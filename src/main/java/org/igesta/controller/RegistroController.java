@@ -41,14 +41,14 @@ public class RegistroController implements RegistroOpenApi {
     }
 
     @GetMapping("/tipo-total-por-unidade/{unidade}")
-    public ResponseEntity<Map<String, Object>> buscarTotaisPorUnidade(@PathVariable String unidade) {
-        Map<String, Object> resultado = registroService.buscarTotaisPorUnidade(unidade);
+    public ResponseEntity<Integer> buscarTotaisPorUnidade(@PathVariable String unidade) {
+        int resultado = registroService.buscarTotaisPorUnidade(unidade);
         return ResponseEntity.ok(resultado);
     }
 
     @GetMapping("/tipo-parcial-por-unidade/{unidade}")
-    public ResponseEntity<Map<String, Object>> buscarParcialPorUnidade(@PathVariable String unidade) {
-        Map<String, Object> resultado = registroService.buscarTotaisParcialPorUnidade(unidade);
+    public ResponseEntity<Integer> buscarParcialPorUnidade(@PathVariable String unidade) {
+        int resultado = registroService.buscarTotaisParcialPorUnidade(unidade);
         return ResponseEntity.ok(resultado);
     }
 
