@@ -50,7 +50,7 @@ public interface RegistroOpenApi {
                             schema = @Schema(implementation = RegistroResponseDTO.class))),
             @ApiResponse(responseCode = "404", description = "Registro não encontrado")
     })
-    public ResponseEntity<Map<String, Object>> buscarTotaisPorUnidade(@Parameter(description = "Unidade das condenas totais a serem buscadas") String unidade);
+    public ResponseEntity<Integer> buscarTotaisPorUnidade(@Parameter(description = "Unidade das condenas totais a serem buscadas") String unidade);
 
     @Operation(summary = "Busca condenas parciais por unidade",
             description = "Retorna todas as condenas parciais por unidade")
@@ -60,7 +60,7 @@ public interface RegistroOpenApi {
                             schema = @Schema(implementation = RegistroResponseDTO.class))),
             @ApiResponse(responseCode = "404", description = "Registro não encontrado")
     })
-    public ResponseEntity<Map<String, Object>> buscarParcialPorUnidade(@Parameter(description = "Unidade das condenas totais a serem buscadas")  String unidade);
+    public ResponseEntity<Integer> buscarParcialPorUnidade(@Parameter(description = "Unidade das condenas totais a serem buscadas")  String unidade);
 
     @Operation(summary = "Insere um novo registro",
             description = "Cria um novo registro no sistema")

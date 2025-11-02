@@ -34,16 +34,6 @@ public class RegistroService {
                 .collect(Collectors.toList());
     }
 
-    public Map<String, Object> buscarTotaisPorUnidade(String unidade) {
-        List<Map<String, Object>> resultado = registroRepository.somarCondenasTotalPorUnidade(unidade);
-        return resultado.isEmpty() ? Map.of("unidade", unidade, "totalQuantidade", 0) : resultado.get(0);
-    }
-
-    public Map<String, Object> buscarTotaisParcialPorUnidade(String unidade) {
-        List<Map<String, Object>> resultado = registroRepository.somarCondenasParcialPorUnidade(unidade);
-        return resultado.isEmpty() ? Map.of("unidade", unidade, "totalQuantidade", 0) : resultado.get(0);
-    }
-
     public RegistroResponseDTO buscarRegistroPorId(String id) {
         Registro registro = registroRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado"));
@@ -55,6 +45,33 @@ public class RegistroService {
         return registros.stream()
                 .map(registro -> objectMapper.convertValue(registro, RegistroResponseDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    public int contarTodasCondenasPorUnidade(String unidade) {
+        List<Map<String, Object>> resultado = registroRepository.contarTodasCondenasPorUnidade(unidade);
+        if (resultado.isEmpty()) {
+            return 0;
+        }
+        Object total = resultado.get(0).get("totalQuantidade");
+        return total != null ? ((Number) total).intValue() : 0;
+    }
+
+    public int buscarTotaisPorUnidade(String unidade) {
+        List<Map<String, Object>> resultado = registroRepository.somarCondenasTotalPorUnidade(unidade);
+        if (resultado.isEmpty()) {
+            return 0;
+        }
+        Object total = resultado.get(0).get("totalQuantidade");
+        return total != null ? ((Number) total).intValue() : 0;
+    }
+
+    public int buscarTotaisParcialPorUnidade(String unidade) {
+        List<Map<String, Object>> resultado = registroRepository.somarCondenasParcialPorUnidade(unidade);
+        if (resultado.isEmpty()) {
+            return 0;
+        }
+        Object total = resultado.get(0).get("totalQuantidade");
+        return total != null ? ((Number) total).intValue() : 0;
     }
 
     public List<Map<String, Object>> buscarTop3CondenasTotalPorUnidade(String unidade) {
@@ -80,15 +97,6 @@ public class RegistroService {
             return atual > 0.0 ? 100.0 : 0.0;
         }
         return ((atual - anterior) / anterior) * 100.0;
-    }
-
-    public int contarTodasCondenasPorUnidade(String unidade) {
-        List<Map<String, Object>> resultado = registroRepository.contarTodasCondenasPorUnidade(unidade);
-        if (resultado.isEmpty()) {
-            return 0;
-        }
-        Object total = resultado.get(0).get("totalQuantidade");
-        return total != null ? ((Number) total).intValue() : 0;
     }
 
     @Transactional
